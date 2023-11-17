@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "372111563523",
+    "project_id": "socialbuds-e574f",
+    "storage_bucket": "socialbuds-e574f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372111563523:android:6e0df2b9eabf09f7ae6736",
+        "android_client_info": {
+          "package_name": "com.example.social_buds"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qkrwP45MBrBkZQezoxP98eIe8g364CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
