@@ -217,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ? Image.asset(
                                                   'assets/images/default_pic.png')
                                               : Image.network(
-                                                  userModel.profilePicture),
+                                                  userModel.profilePicture,),
                                         ),
                                       ));
                             },

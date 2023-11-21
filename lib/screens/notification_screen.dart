@@ -40,7 +40,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   leading: CircleAvatar(
                     radius: 20,
                     backgroundImage: user.profilePicture.isEmpty
-                        ? AssetImage('assets/placeholder.png')
+                        ? AssetImage('assets/images/default_pic.png')
                         : NetworkImage(user.profilePicture) as ImageProvider,
                   ),
                   title: activity.follow == true

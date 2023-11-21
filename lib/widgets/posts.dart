@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/services/database_service.dart';
+import 'package:social_buds/widgets/photoview.dart';
 
 class PostContainer extends StatefulWidget {
   final Post post;
@@ -116,15 +117,26 @@ class _PostContainerState extends State<PostContainer> {
               : Column(
                   children: [
                     SizedBox(height: 15),
-                    Container(
-                      height: 250,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(widget.post.image),
-                          )),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PhotoViewEx(
+                                      author: widget.author,
+                                      post: widget.post,
+                                    )));
+                      },
+                      child: Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(widget.post.image),
+                            )),
+                      ),
                     )
                   ],
                 ),

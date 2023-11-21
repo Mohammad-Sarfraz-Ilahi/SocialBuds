@@ -1,10 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
+import 'package:social_buds/models/comment.dart';
+import 'package:social_buds/models/post.dart';
+import 'package:social_buds/models/user_model.dart';
 
 class CommentCard extends StatefulWidget {
-  const CommentCard({super.key});
+  final Comments authorId;
+  const CommentCard({super.key, required this.authorId,});
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -18,7 +23,9 @@ class _CommentCardState extends State<CommentCard> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage('assets/images/default_pic.png'),
+            // backgroundImage: widget.authorId.image
+            // ? AssetImage('assets/images/default_pic.png')
+            // : NetworkImage(widget.authorId['profilePicture']) as ImageProvider,
             radius: 18,
           ),
           Padding(padding: EdgeInsets.only(left: 16),

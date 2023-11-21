@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:social_buds/screens/feed_screen.dart';
+import 'package:social_buds/screens/welcome_screen.dart';
 
 
 class StartPage extends StatefulWidget {
@@ -18,8 +21,7 @@ class StartPageState extends State<StartPage> {
     // TODO: implement initState
     super.initState();
 
-    Future.delayed(Duration(seconds: 1),(){
-    });
+    whereToGo();
   }
 
   @override
@@ -59,5 +61,19 @@ class StartPageState extends State<StartPage> {
         ],
       ),
     );
+  }
+   void whereToGo() async {
+    Timer(Duration(seconds: 1), () {
+    StreamBuilder(
+    stream: FirebaseAuth.instance.authStateChanges(),
+    builder: (BuildContext context, snapshot) {
+      if(snapshot.hasData){
+        return FeedScreen(currentUserId: snapshot.data!.uid,);
+      }else {
+        return WelcomeScreen();
+      }
+    }
+    );
+    });
   }
 }

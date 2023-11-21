@@ -234,7 +234,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: const Icon(
                       Icons.info,
-                      color: Colors.white,
+                      color: Colors.grey,
                     ),
                   ),
                   const SizedBox(

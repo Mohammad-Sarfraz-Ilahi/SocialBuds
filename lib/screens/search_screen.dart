@@ -52,6 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
         centerTitle: true,
         elevation: 4,
         title: TextField(
+          style: TextStyle(height: 1.5,),
           controller: _searchController,
           decoration: InputDecoration(
             fillColor: Colors.transparent,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/screens/comment_screen.dart';
 import 'package:social_buds/screens/profile_screen.dart';
 import 'package:social_buds/services/database_service.dart';
+import 'package:social_buds/widgets/photoview.dart';
 
 class PostHomeContainer extends StatefulWidget {
-  final snap;
   final Post post;
   final UserModel author;
   final String currentUserId;
@@ -15,7 +16,7 @@ class PostHomeContainer extends StatefulWidget {
     super.key,
     required this.post,
     required this.author,
-    required this.currentUserId, this.snap,
+    required this.currentUserId,
   });
   @override
   _PostHomeContainerState createState() => _PostHomeContainerState();
@@ -66,7 +67,13 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProfileScreen(
+                  currentUserId: widget.currentUserId,
+                  visitedUserId: widget.author.id,
+                )));
+            },
             child: Row(
               children: [
                 CircleAvatar(
@@ -102,15 +109,13 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
                     SizedBox(height: 15),
                     InkWell(
                       onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                                  child: Container(
-                                    child: Image.network(
-                                      widget.post.image,
-                                    ),
-                                  ),
-                                ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PhotoViewEx(
+                                      author: widget.author,
+                                      post: widget.post,
+                                    )));
                       },
                       child: Container(
                         height: 250,
@@ -146,13 +151,13 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
                   ),
                   IconButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: ((context) => CommentScreen(
-                        //               snap: widget.snap['authotId'],
-                        //               visitedUserId: widget.currentUserId,
-                        //             ))));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => CommentScreen(
+                                      visitedUserId: widget.currentUserId,
+                                      authorId: widget.post,
+                                    ))));
                       },
                       icon: Icon(
                         Icons.comment,

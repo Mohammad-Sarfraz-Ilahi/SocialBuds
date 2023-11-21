@@ -6,6 +6,11 @@ class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final auth=FirebaseAuth.instance;
 
+  clear() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _emailController.clear());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +42,7 @@ class ForgotPasswordScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               _showResetPasswordDialog(context);
+              clear();
             },
             child: Text('Reset Password'),
             style: TextButton.styleFrom(

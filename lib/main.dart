@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_buds/screens/feed_screen.dart';
+import 'package:social_buds/screens/login.dart';
+import 'package:social_buds/screens/splash_screen.dart';
 import 'package:social_buds/widgets/theme_provider.dart';
 
 import 'firebase_options.dart';

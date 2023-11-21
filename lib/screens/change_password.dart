@@ -14,6 +14,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   final auth=FirebaseAuth.instance;
 
+  clear() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _emailController.clear());
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -51,6 +56,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ElevatedButton(
             onPressed: () {
               _showResetPasswordDialog(context);
+              clear();
             },
             child: Text('Change Password'),
             style: TextButton.styleFrom(

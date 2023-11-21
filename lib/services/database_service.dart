@@ -231,12 +231,12 @@ class DatabaseServices {
     }
   }
 
-  Future<void> postComment(String authorId, String text, String uid, String? username, String profilePic) async{
+  Future<void> postComment(String authorId, String text, String uid, String? username, String profilePicture) async{
     try{
       if(text.isNotEmpty){
         String commentId= Uuid().v1();
         postsRef.doc(authorId).collection('comments').doc(commentId).set({
-          'profilePic':profilePic,
+          'profilePicture':profilePicture,
           'username':username,
           'uid':uid,
           'text':text,

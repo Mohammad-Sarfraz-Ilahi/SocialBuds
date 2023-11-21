@@ -1,19 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:social_buds/constants.dart';
+import 'package:social_buds/models/comment.dart';
+import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
-  final snap;
+  final Post authorId;
   final String visitedUserId;
 
   CommentScreen({
     super.key,
-    required this.snap,
     required this.visitedUserId,
+    required this.authorId,
   });
 
   @override
@@ -22,6 +26,11 @@ class CommentScreen extends StatefulWidget {
 
 class _CommentScreenState extends State<CommentScreen> {
   final TextEditingController _commentController = TextEditingController();
+
+  clear() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _commentController.clear());
+  }
 
   @override
   void dispose() {
@@ -35,7 +44,25 @@ class _CommentScreenState extends State<CommentScreen> {
       appBar: AppBar(
         title: Text('Comments'),
       ),
-      body: CommentCard(),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('posts')
+            .doc(widget.authorId.toString())
+            .collection('comments')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => CommentCard(authorId: (snapshot.data! as dynamic).docs[index].data(),
+                    //snap: (snapshot.data! as dynamic).docs[index].data(),
+                  ));
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: FutureBuilder(
           future: usersRef.doc(widget.visitedUserId).get(),
@@ -79,11 +106,12 @@ class _CommentScreenState extends State<CommentScreen> {
                   InkWell(
                     onTap: () async {
                       await DatabaseServices().postComment(
-                          widget.snap['authorId'],
+                          widget.authorId.toString(),
                           _commentController.text,
                           userModel.id,
                           userModel.username,
                           userModel.profilePicture);
+                      clear();
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),

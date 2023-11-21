@@ -9,6 +9,7 @@ import 'package:social_buds/widgets/post_home.dart';
 
 class HomeScreen extends StatefulWidget {
   final String currentUserId;
+  
 
   const HomeScreen({
     super.key,
