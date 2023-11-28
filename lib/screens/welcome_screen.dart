@@ -35,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Text(
                     "Connect with your friends and family through Social Buds",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  )
+                  ),
                 ],
               ),
               Column(

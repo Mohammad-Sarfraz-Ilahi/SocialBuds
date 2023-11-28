@@ -160,6 +160,12 @@ class _SettingsPageState extends State<SettingsPage> {
                           actions: [
                             TextButton(
                               onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () {
                                 AuthService.logout();
                                 Navigator.pushReplacement(
                                     context,
@@ -167,12 +173,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                         builder: (context) => WelcomeScreen()));
                               },
                               child: Text('Yes'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('No'),
                             ),
                           ],
                         ));

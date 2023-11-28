@@ -8,7 +8,6 @@ import 'package:social_buds/constants.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/services/storage_service.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -22,7 +21,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _name;
   String? _bio;
   File? _profileImage;
-  CroppedFile? _croppedFile;
   File? _coverImage;
   String? _imagePickedType;
   final _formKey = GlobalKey<FormState>();
@@ -232,43 +230,5 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ],
       ),
     );
-  }
-  Future<void> _cropImage() async {
-    if (_profileImage != null) {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: _profileImage!.path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
-            ),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        setState(() {
-          _croppedFile = croppedFile;
-        });
-      }
-    }
   }
 }

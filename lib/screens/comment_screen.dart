@@ -11,13 +11,16 @@ import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
-  final Post authorId;
+  final String authorId;
+  final String id;
   final String visitedUserId;
+  final Post post;
 
   CommentScreen({
     super.key,
     required this.visitedUserId,
-    required this.authorId,
+    required this.authorId, required this.id,
+    required this.post
   });
 
   @override
@@ -42,24 +45,31 @@ class _CommentScreenState extends State<CommentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comments'),
+        backgroundColor: KTweeterColor,
+        title: Text('Comments', style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('posts')
             .doc(widget.authorId.toString())
+            .collection('userPosts')
+            .doc(widget.id.toString())
             .collection('comments')
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: KTweeterColor,
+              ),
             );
           }
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) => CommentCard(authorId: (snapshot.data! as dynamic).docs[index].data(),
-                    //snap: (snapshot.data! as dynamic).docs[index].data(),
+              itemBuilder: (context, index) => CommentCard(
+                    snap: (snapshot.data! as dynamic).docs[index].data(),
                   ));
         },
       ),
@@ -106,7 +116,7 @@ class _CommentScreenState extends State<CommentScreen> {
                   InkWell(
                     onTap: () async {
                       await DatabaseServices().postComment(
-                          widget.authorId.toString(),
+                          widget.post,
                           _commentController.text,
                           userModel.id,
                           userModel.username,

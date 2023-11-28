@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
+import 'package:intl/intl.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/screens/comment_screen.dart';
@@ -69,10 +69,10 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
           InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ProfileScreen(
-                  currentUserId: widget.currentUserId,
-                  visitedUserId: widget.author.id,
-                )));
+                  builder: (context) => ProfileScreen(
+                        currentUserId: widget.currentUserId,
+                        visitedUserId: widget.author.id,
+                      )));
             },
             child: Row(
               children: [
@@ -92,6 +92,13 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                SizedBox(width: 20),
+                Text(
+                DateFormat.yMMMd().format(
+                  widget.post.timestamp.toDate(),
+                ),
+                style: TextStyle(color: Colors.grey),
+              ),
               ],
             ),
           ),
@@ -146,29 +153,31 @@ class _PostHomeContainerState extends State<PostHomeContainer> {
                   Text(
                     _likesCount.toString() + ' Likes',
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
+                  SizedBox(width: 20,),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => CommentScreen(
                                       visitedUserId: widget.currentUserId,
-                                      authorId: widget.post,
+                                      authorId: widget.post.authorId,
+                                      id: widget.post.id.toString(),
+                                      post: widget.post,
                                     ))));
-                      },
-                      icon: Icon(
-                        Icons.comment,
-                        color: Colors.grey,
-                      )),
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.comment,
+                        color: Colors.grey,),
+                        SizedBox(width: 10,),
+                        Text('Comments')
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              Text(
-                widget.post.timestamp.toDate().toString().substring(0, 19),
-                style: TextStyle(color: Colors.grey),
-              )
+              
             ],
           ),
           SizedBox(height: 10),

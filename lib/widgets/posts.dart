@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
+import 'package:social_buds/screens/comment_screen.dart';
 import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/widgets/photoview.dart';
 
@@ -81,28 +83,13 @@ class _PostContainerState extends State<PostContainer> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Spacer(),
-              IconButton(onPressed: () {
-                showDialog(context: context, builder: (context)=> Dialog(
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    shrinkWrap: true,
-                    children: [
-                      'Delete'
-                    ].map((e) => InkWell(
-                      onTap: ()async{
-                        DatabaseServices().deletePost(widget.post);
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                        child: Text(e,style: TextStyle(fontSize: 16,),),
-                      ),
-                    ),
-                    ).toList(),
-                  ),
-                ));
-              }, icon: Icon(Icons.more_vert))
+              SizedBox(width: 20),
+                Text(
+                DateFormat.yMMMd().format(
+                  widget.post.timestamp.toDate(),
+                ),
+                style: TextStyle(color: Colors.grey),
+              ),
             ],
           ),
           SizedBox(height: 15),
@@ -156,12 +143,30 @@ class _PostContainerState extends State<PostContainer> {
                   Text(
                     _likesCount.toString() + ' Likes',
                   ),
+                  SizedBox(width: 20,),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => CommentScreen(
+                                      visitedUserId: widget.currentUserId,
+                                      authorId: widget.post.authorId,
+                                      id: widget.post.id.toString(),
+                                      post: widget.post,
+                                    ))));
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.comment,
+                        color: Colors.grey,),
+                        SizedBox(width: 10,),
+                        Text('Comments')
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              Text(
-                widget.post.timestamp.toDate().toString().substring(0, 19),
-                style: TextStyle(color: Colors.grey),
-              )
             ],
           ),
           SizedBox(height: 10),

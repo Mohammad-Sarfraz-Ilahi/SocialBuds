@@ -56,7 +56,6 @@ class AuthService {
       Navigator.pop(context);
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

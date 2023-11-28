@@ -10,7 +10,6 @@ import 'package:social_buds/screens/welcome_screen.dart';
 import 'package:social_buds/services/auth_service.dart';
 import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/widgets/posts.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 import '../models/user_model.dart';
 

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:social_buds/constants.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/services/database_service.dart';
@@ -12,26 +13,28 @@ import 'package:social_buds/widgets/rounded_button.dart';
 class CreatePostScreen extends StatefulWidget {
   final String currentUserId;
 
-  const CreatePostScreen({super.key, required this.currentUserId,});
+  const CreatePostScreen({
+    super.key,
+    required this.currentUserId,
+  });
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-  String _caption='';
+  String _caption = '';
   File? _pickedImage;
   bool _loading = false;
 
-  void handleImageFromGallery() async{
-    try{
+  void handleImageFromGallery() async {
+    try {
       final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(photo==null) return;
+      if (photo == null) return;
       final tempImage = File(photo.path);
       setState(() {
         _pickedImage = tempImage;
-      }); 
-    }
-    catch(error){
+      });
+    } catch (error) {
       debugPrint(error.toString());
     }
   }
@@ -58,7 +61,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               SizedBox(height: 20),
               TextField(
                 maxLines: null,
-                  minLines: 1,
+                minLines: 1,
                 decoration: InputDecoration(
                   hintText: 'Write something here...',
                 ),
@@ -71,14 +74,24 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ? SizedBox.shrink()
                   : Column(
                       children: [
-                        Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                              color: KTweeterColor,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: FileImage(_pickedImage as File),
-                              )),
+                        InkWell(
+                          onTap: () {
+                            showDialog(context: context, builder: (context)=>Container(
+                                child: PhotoView(
+                              minScale: 0.3,
+                              maxScale: 3.0,
+                              imageProvider: FileImage(_pickedImage as File),
+                            )));
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                color: KTweeterColor,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: FileImage(_pickedImage as File),
+                                )),
+                          ),
                         ),
                         SizedBox(height: 20),
                       ],
@@ -114,7 +127,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     if (_pickedImage == null) {
                       image = '';
                     } else {
-                      image = await StorageService.uploadPostPicture(_pickedImage!);
+                      image =
+                          await StorageService.uploadPostPicture(_pickedImage!);
                     }
                     Post post = Post(
                       text: _caption,
@@ -134,7 +148,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 },
               ),
               SizedBox(height: 20),
-              _loading ? CircularProgressIndicator(color: KTweeterColor,) : SizedBox.shrink()
+              _loading
+                  ? CircularProgressIndicator(
+                      color: KTweeterColor,
+                    )
+                  : SizedBox.shrink()
             ],
           ),
         ),

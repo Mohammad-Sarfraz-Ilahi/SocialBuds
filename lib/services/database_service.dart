@@ -231,23 +231,40 @@ class DatabaseServices {
     }
   }
 
-  Future<void> postComment(String authorId, String text, String uid, String? username, String profilePicture) async{
-    try{
-      if(text.isNotEmpty){
-        String commentId= Uuid().v1();
-        postsRef.doc(authorId).collection('comments').doc(commentId).set({
-          'profilePicture':profilePicture,
-          'username':username,
-          'uid':uid,
-          'text':text,
-          'commentId':commentId,
+  Future<void> postComment(Post post, String text, String uid, String? username,
+      String profilePicture) async {
+    try {
+      if (text.isNotEmpty) {
+        String commentId = Uuid().v1();
+        postsRef
+            .doc(post.authorId)
+            .collection('userPosts')
+            .doc(post.id)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'profilePicture': profilePicture,
+          'username': username,
+          'uid': uid,
+          'text': text,
+          'commentId': commentId,
           'date': DateTime.now(),
         });
-      } else{
+      } else {
         print('Text is empty');
       }
-    } catch(e){
+    } catch (e) {
       print(e.toString());
     }
+  }
+
+  static Future<void> getComments(String userId) async {
+    postsRef
+        .doc(userId)
+        .collection('userPosts')
+        .doc('41US6jNuierh6AsEp1rt')
+        .collection('comments')
+        .orderBy('date', descending: true)
+        .get();
   }
 }

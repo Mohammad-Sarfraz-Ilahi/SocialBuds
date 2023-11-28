@@ -23,6 +23,8 @@ class _PhotoViewExState extends State<PhotoViewEx> {
   Widget build(BuildContext context) {
     return Container(
         child: PhotoView(
+          minScale: 0.3,
+          maxScale: 3.0,
       imageProvider: NetworkImage(widget.post.image),
     ));
   }
