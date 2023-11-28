@@ -16,5 +16,6 @@ Social Buds is a Flutter application that allows users to connect and socialize 
 
 - Search: Search any user on Social Buds whom you may know.
 
-Download it from here: https://drive.google.com/drive/folders/1qCojts97fbsMwP6xv9rDOLKsTWNtcTk1?usp=drive_link
+### Download it from here: 
+https://drive.google.com/drive/folders/1qCojts97fbsMwP6xv9rDOLKsTWNtcTk1?usp=drive_link
 
