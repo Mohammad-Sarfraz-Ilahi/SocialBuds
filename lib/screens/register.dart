@@ -49,7 +49,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       child: Material(
         child: Scaffold(
-          //backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Form(
               key: formkey,
@@ -65,9 +64,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontWeight: FontWeight.w700,
                     color: Colors.grey.shade500,
                   ),
-                ),
-                SizedBox(
-                  height: 18,
                 ),
                 Padding(
                   padding:
@@ -101,10 +97,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return 'Please enter a username';
                           }
                           if (value.length < 3 || value.length > 30) {
-                            return 'Username must be between 3 and 30 characters';
+                            return 'Username must be more than 3 characters';
                           }
                           if (!RegExp(r'^[a-z-0-9_]+$').hasMatch(value)) {
-                            return 'It can only contain small letters, numbers, underscore';
+                            return 'It can only contain small letters, numbers & underscore';
                           }
                           if (value.startsWith('_') || value.endsWith('_')) {
                             return 'Username cannot start or end with an underscore';
@@ -163,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return "Password required";
                             }
                             if (values != passcontroller.text) {
-                              return 'Password do not match';
+                              return "Password didn't matched";
                             } else {
                               return null;
                             }
@@ -189,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                         },
                         child: Text('SIGN UP',
-                            style: TextStyle(fontWeight: FontWeight.w600)),
+                            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
                         style: TextButton.styleFrom(
                             minimumSize: Size(150, 43),
                             backgroundColor: Color.fromARGB(255, 255, 78, 90),
@@ -198,9 +194,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -215,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen()));

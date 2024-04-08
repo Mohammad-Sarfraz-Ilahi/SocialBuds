@@ -33,7 +33,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         children: [
           Text(
             'Change Password?',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
           ),
           SizedBox(height: 16),
           Padding(
@@ -58,7 +58,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               _showResetPasswordDialog(context);
               clear();
             },
-            child: Text('Change Password'),
+            child: Text('Change Password', style: TextStyle(color: Colors.white),),
             style: TextButton.styleFrom(
                 minimumSize: Size(150, 43),
                 backgroundColor: Color.fromARGB(255, 255, 78, 90),

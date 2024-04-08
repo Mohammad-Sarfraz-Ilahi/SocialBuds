@@ -12,7 +12,10 @@ import 'package:social_buds/services/storage_service.dart';
 class EditProfileScreen extends StatefulWidget {
   final UserModel user;
 
-  const EditProfileScreen({super.key, required this.user,});
+  const EditProfileScreen({
+    super.key,
+    required this.user,
+  });
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
@@ -26,8 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  ImagePicker imagePicker=new ImagePicker();
-
+  ImagePicker imagePicker = new ImagePicker();
 
   displayProfileImage() {
     if (_profileImage == null) {
@@ -67,18 +69,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  void handleImageFromGallery() async{
-    try{
+  void handleImageFromGallery() async {
+    try {
       final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(photo==null) return;
+      if (photo == null) return;
       final tempImage = File(photo.path);
       setState(() {
         _profileImage = tempImage;
       });
-
-      
-    }
-    catch(error){
+    } catch (error) {
       debugPrint(error.toString());
     }
   }
@@ -94,9 +93,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: KTweeterColor,
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(
@@ -186,19 +196,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a username';
-                          }
-                          if (value.length < 3 || value.length > 30) {
-                            return 'Username must be between 3 and 30 characters';
-                          }
-                          if (!RegExp(r'^[a-z-0-9_]+$').hasMatch(value)) {
-                            return 'It can only contain small letters, numbers, underscore';
-                          }
-                          if (value.startsWith('_') || value.endsWith('_')) {
-                            return 'Username cannot start or end with an underscore';
-                          }
-                          return null;
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a username';
+                            }
+                            if (value.length < 3 || value.length > 30) {
+                              return 'Username must be between 3 and 30 characters';
+                            }
+                            if (!RegExp(r'^[a-z-0-9_]+$').hasMatch(value)) {
+                              return 'It can only contain small letters, numbers, underscore';
+                            }
+                            if (value.startsWith('_') || value.endsWith('_')) {
+                              return 'Username cannot start or end with an underscore';
+                            }
+                            return null;
                           },
                           onSaved: (value) {
                             _name = value;

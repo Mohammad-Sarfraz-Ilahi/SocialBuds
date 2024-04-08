@@ -31,8 +31,17 @@ class _SettingsPageState extends State<SettingsPage> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

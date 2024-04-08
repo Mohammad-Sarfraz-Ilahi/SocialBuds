@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.social_buds">
+    package="com.sarfraz.social_buds">
    <application
         android:label="Social Buds"
         android:name="${applicationName}"

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_buds/constants.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -44,7 +43,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               _showResetPasswordDialog(context);
               clear();
             },
-            child: Text('Reset Password'),
+            child: Text('Reset Password', style: TextStyle(color: Colors.white),),
             style: TextButton.styleFrom(
                 minimumSize: Size(150, 43),
                 backgroundColor: Color.fromARGB(255, 255, 78, 90),

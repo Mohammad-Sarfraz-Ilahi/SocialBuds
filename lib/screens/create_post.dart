@@ -50,8 +50,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -63,7 +72,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 maxLines: null,
                 minLines: 1,
                 decoration: InputDecoration(
-                  hintText: 'Write something here...',
+                  hintText: 'Write a caption...',
                 ),
                 onChanged: (value) {
                   _caption = value;
@@ -76,12 +85,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            showDialog(context: context, builder: (context)=>Container(
-                                child: PhotoView(
-                              minScale: 0.3,
-                              maxScale: 3.0,
-                              imageProvider: FileImage(_pickedImage as File),
-                            )));
+                            showDialog(
+                                context: context,
+                                builder: (context) => Container(
+                                        child: PhotoView(
+                                      minScale: 0.3,
+                                      maxScale: 3.0,
+                                      imageProvider:
+                                          FileImage(_pickedImage as File),
+                                    )));
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.width,
@@ -149,9 +161,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               ),
               SizedBox(height: 20),
               _loading
-                  ? CircularProgressIndicator(
-                      color: KTweeterColor,
-                    )
+                  ? CircularProgressIndicator(color: KTweeterColor)
                   : SizedBox.shrink()
             ],
           ),

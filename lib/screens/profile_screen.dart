@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:social_buds/constants.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/screens/edit_profile.dart';
-import 'package:social_buds/screens/setting_screen.dart';
-import 'package:social_buds/screens/welcome_screen.dart';
-import 'package:social_buds/services/auth_service.dart';
 import 'package:social_buds/services/database_service.dart';
 import 'package:social_buds/widgets/posts.dart';
 
@@ -178,8 +174,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: KTweeterColor,
           title: Text(
             'Profile',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
+          automaticallyImplyLeading: false,
         ),
         body: FutureBuilder(
           future: usersRef.doc(widget.visitedUserId).get(),

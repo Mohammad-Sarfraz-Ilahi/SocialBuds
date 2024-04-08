@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:social_buds/models/comment.dart';
-import 'package:social_buds/models/post.dart';
-import 'package:social_buds/models/user_model.dart';
 
 class CommentCard extends StatelessWidget {
   final snap;

@@ -223,13 +223,6 @@ class DatabaseServices {
     }
   }
 
-  Future<void> deletePost(Post post) async {
-    try {
-      await postsRef.doc(post.authorId).collection('userPosts').doc().delete();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   Future<void> postComment(Post post, String text, String uid, String? username,
       String profilePicture) async {
@@ -256,15 +249,5 @@ class DatabaseServices {
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  static Future<void> getComments(String userId) async {
-    postsRef
-        .doc(userId)
-        .collection('userPosts')
-        .doc('41US6jNuierh6AsEp1rt')
-        .collection('comments')
-        .orderBy('date', descending: true)
-        .get();
   }
 }

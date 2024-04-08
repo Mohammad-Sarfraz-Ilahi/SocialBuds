@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.cover,
                   ),
                   Text(
-                    'Hey',
+                    'Hey, Welcome',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -154,6 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'LOG IN',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
+                              color: Colors.white,
                             ),
                           ),
                           style: TextButton.styleFrom(

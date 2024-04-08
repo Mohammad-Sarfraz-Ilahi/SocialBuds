@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:social_buds/constants.dart';
-import 'package:social_buds/models/comment.dart';
 import 'package:social_buds/models/post.dart';
 import 'package:social_buds/models/user_model.dart';
 import 'package:social_buds/services/database_service.dart';
@@ -46,8 +43,16 @@ class _CommentScreenState extends State<CommentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: KTweeterColor,
-        title: Text('Comments', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('Comments', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
         centerTitle: true,
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
